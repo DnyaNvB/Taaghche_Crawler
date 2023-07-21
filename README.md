@@ -6,14 +6,15 @@ This code scrapes the taaghche.com website for book metadata, including the titl
 
 1. Clone the repository.
 2. Install the dependencies:
-
-
-pip install requests bs4 pandas
 ```
 
-3. Run the code:
+pip install requests
+pip install bs4
+pip install pandas
 
 ```
+3. run the code:
+
 python scrape.py
 
 
