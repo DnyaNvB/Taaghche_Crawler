@@ -7,11 +7,9 @@ This code scrapes the taaghche.com website for book metadata, including the titl
 1. Clone the repository.
 2. Install the dependencies:
 ```
-
 pip install requests
 pip install beautifulsoup4
 pip install pandas
-
 ```
 3. run the code:
 
