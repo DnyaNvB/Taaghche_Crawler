@@ -1,6 +1,7 @@
 from urllib.error import HTTPError
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 def handle_error(url):
@@ -23,20 +24,32 @@ def create_table(bs):
     title_book = bs.find_all(class_='bookCard_bookTitle__3CvxH')
     titles = [title.text for title in title_book]
     price_book = bs.find_all(class_='bookCard_toman__2WUMO')
-    price = [p.text for p in price_book]
+    prices = [p.text for p in price_book]
+    data = {}
+    for i in range(len(titles)):
+        if titles[i] != "" and authors[i] != "":
+            data[titles[i]] = {"نویسنده": authors[i], "قیمت": prices[i]}
 
-    print(f'authors: {authors}\n'
-          f'titles: {titles}\n'
-          f'price: {price}')
+    df = pd.DataFrame.from_dict(data, orient="index")
+    df["نام کتاب"] = titles
+    df = df.set_index("نام کتاب", drop=False)
+    df = df[["نویسنده", "قیمت"]]
+    return df
+
+
+def create_csv(bs):
+    data = create_table(bs)
+    data.to_csv('metaData.csv')
 
 
 def scrape(url):
     handle_error(url)
     html = requests.get(url)
     bs = BeautifulSoup(html.content, 'html.parser')
-    create_table(bs)
+    return bs
 
 
 if __name__ == "__main__":
     url = "https://taaghche.com/filter?filter-collection=3130&filter-hasPhysicalBook=0&filter-target=4&order=1"
-    scrape(url)
+    soup = scrape(url)
+    create_csv(soup)
