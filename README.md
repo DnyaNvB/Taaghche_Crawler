@@ -1,20 +1,38 @@
-# Taaghche_Crawler
-Here I have crawled some data from the Taaghche site
+# Scraping taaghche.com for book metadata
+
+This code scrapes the taaghche.com website for book metadata, including the title, author, and price. The metadata is then saved to a CSV file.
+
+## Usage
+
+1. Clone the repository.
+2. Install the dependencies:
 
 
-## What's included
+pip install requests bs4 pandas
+```
 
-The code includes the following:
+3. Run the code:
 
-* A series of functions to crawl the Taaghche website and get meta datas.
-* A function to convert the data in the `taaghche.txt` file to a tabular format.
-* A function to write the data to a `.csv` file.
+```
+python scrape.py
 
-## Requirements
 
-The code requires the following Python modules:
+## Output
 
-* `csv`
-* `open`
-* `requests`
-* `BeautifulSoup`
+The output of the code is a CSV file called `metaData.csv`. The CSV file contains the following columns:
+
+* `نام کتاب` (Book title)
+* `نویسنده` (Author)
+* `قیمت` (Price)
+
+## Contributing
+
+Contributions are welcome! Please open a pull request if you have any improvements or additions to the code.
+
+
+## Author
+
+Donya Navabi
+
+
+I hope this is helpful! Let me know if you have any other questions.
