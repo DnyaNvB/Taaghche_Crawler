@@ -5,6 +5,17 @@ import pandas as pd
 
 
 def handle_error(url):
+    """Handles errors that may occur when scraping the website.
+
+    Args:
+        url (str): The URL of the website to scrape.
+
+    Raises:
+        HTTPError: If an HTTP error occurs.
+        ConnectionError: If a connection error occurs.
+        TimeoutError: If a timeout error occurs.
+        requests.exceptions.RequestException: If any other error occurs.
+    """
     try:
         response = requests.get(url, timeout=5)
         response.raise_for_status()
@@ -19,6 +30,14 @@ def handle_error(url):
 
 
 def create_table(bs):
+    """Creates a Pandas DataFrame from the scraped data.
+
+    Args:
+        bs (BeautifulSoup): The BeautifulSoup object containing the scraped data.
+
+    Returns:
+        Pandas DataFrame: The DataFrame containing the scraped data.
+    """
     author_book = bs.find_all("div", class_="bookCard_bookAuthor__bvfqi")
     authors = [author.text for author in author_book]
     title_book = bs.find_all(class_='bookCard_bookTitle__3CvxH')
@@ -37,12 +56,22 @@ def create_table(bs):
     return df
 
 
-def create_csv(bs):
-    data = create_table(bs)
+def create_csv(soup):
+    """Creates a CSV file from the Pandas DataFrame.
+
+    Args:
+        df (Pandas DataFrame): The DataFrame to save to CSV.
+    """
+    data = create_table(soup)
     data.to_csv('metaData.csv')
 
 
 def scrape(url):
+    """Scrape the website and create a CSV file.
+
+    Args:
+        url (str): The URL of the website to scrape.
+    """
     handle_error(url)
     html = requests.get(url)
     bs = BeautifulSoup(html.content, 'html.parser')
