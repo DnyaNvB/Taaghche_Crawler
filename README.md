@@ -15,7 +15,7 @@ pip install pandas
 ```
 3. run the code:
 
-python scrape.py
+python main.py
 
 
 ## Output
