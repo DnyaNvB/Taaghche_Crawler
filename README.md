@@ -9,7 +9,7 @@ This code scrapes the taaghche.com website for book metadata, including the titl
 ```
 
 pip install requests
-pip install bs4
+pip install beautifulsoup4
 pip install pandas
 
 ```
